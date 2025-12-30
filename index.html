@@ -1,13 +1,269 @@
-<go sleep please>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>mpv‑Android — مشغل وسائط مفتوح المصدر</title>
+  <meta name="description" content="mpv‑Android: مشغل فيديو وصوت مفتوح المصدر عالي الأداء لنظام Android — دعم ترجمة متقدّم، تشغيل شبكي، تحكم بالإيماءات ومميزات متقدمة للمستخدمين المحترفين." />
 
+  <!-- Open Graph / Twitter Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="mpv‑Android — مشغل وسائط مفتوح المصدر">
+  <meta property="og:description" content="مشغل فيديو وصوت عالي الأداء يدعم libmpv، الترجمة، والتحكم بالإيماءات. حمله من Google Play أو من GitHub.">
+  <meta property="og:url" content="https://android.mpv.io/">
+  <meta property="og:image" content="/assets/preview.png">
+  <meta name="twitter:card" content="summary_large_image">
 
+  <!-- Manifest & theme -->
+  <meta name="theme-color" content="#0b84ff">
 
+  <!-- Preload font (optional) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;700;900&display=swap" rel="stylesheet">
 
+  <style>
+    /* ---------- قاعدة التصميم (RTL) ---------- */
+    :root{
+      --bg:#0f1724; /* for dark hero */
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#0b84ff;
+      --glass: rgba(255,255,255,0.04);
+      --radius:14px;
+      --max:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Noto Kufi Arabic', system-ui, -apple-system, "Segoe UI", Roboto, 'Helvetica Neue', Arial; background:#0b1220;color:#e6eef6;line-height:1.5}
+    a{color:var(--accent);text-decoration:none}
+    header{background:linear-gradient(180deg,var(--bg),#071025 140%);padding:28px 18px;border-bottom:1px solid rgba(255,255,255,0.03)}
+    .container{max-width:var(--max);margin:0 auto;padding:0 18px}
 
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:76px;height:76px;border-radius:14px;background:linear-gradient(135deg,#123 10%, #045 100%);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:26px}
+    h1{font-size:28px;margin:6px 0}
+    p.lead{color:var(--muted);margin:8px 0 18px}
+    .badges{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:var(--accent);color:white;font-weight:700}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent);font-weight:700}
 
+    /* Feature cards */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .card h3{margin:0 0 8px}
+    .muted{color:var(--muted)}
 
+    /* Screenshots */
+    .screenshot{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg,#071025,#06101c);padding:12px}
+    .screenshot img{width:100%;height:auto;display:block}
 
+    /* Sections */
+    section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.02)}
+    .row{display:flex;gap:20px;align-items:center}
+    .col{flex:1}
 
+    /* Footer */
+    footer{padding:26px 0;color:var(--muted);font-size:14px}
 
+    /* Responsive */
+    @media (max-width:980px){.hero{grid-template-columns:1fr;}.grid{grid-template-columns:repeat(2,1fr)}.screenshot{margin-top:18px}}
+    @media (max-width:560px){.grid{grid-template-columns:1fr}.logo{width:60px;height:60px;border-radius:10px}.btn{padding:9px 12px}}
 
+    /* Utility */
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{padding:6px 9px;border-radius:999px;background:var(--glass);font-size:13px;color:var(--muted)}
+    .version{font-weight:700;color:#dbeafe}
 
+    /* Light mode fallback (optional) */
+    .light body{background:#f5f7fb;color:#111}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="logo" aria-hidden="true">mpv</div>
+          <div>
+            <div style="font-size:13px;color:var(--muted)">مشغل وسائط</div>
+            <div class="version">mpv‑Android <span style="font-weight:400;color:var(--muted);font-size:13px">— الإصدار التجريبي</span></div>
+          </div>
+        </div>
+        <nav aria-label="رابطات" style="display:flex;gap:12px;align-items:center">
+          <a class="btn" href="https://play.google.com/store/apps/details?id=is.xyz.mpv" target="_blank" rel="noopener">تحميل من Play</a>
+          <a class="btn secondary" href="https://github.com/mpv-android/mpv-android" target="_blank" rel="noopener">مشروع على GitHub</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <div class="brand">
+          <div style="display:flex;flex-direction:column">
+            <h1 id="hero-title">mpv‑Android — مشغل فيديو/صوت خفيف وقوي</h1>
+            <p class="lead">تشغيل ملفات محلية وسحب روابط شبكة، دعم ترجمات متقدّم (libass), تحكم بالإيماءات، وإعدادات متقدمة للمستخدمين المحترفين.</p>
+            <div class="badges">
+              <a class="btn" href="https://play.google.com/store/apps/details?id=is.xyz.mpv" target="_blank" rel="noopener">تحميل من Play</a>
+              <a class="btn secondary" href="https://github.com/mpv-android/mpv-android/releases" target="_blank" rel="noopener">الإصدارات</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid" style="margin-top:20px">
+          <div class="card">
+            <h3>دعم صيغات متعددة</h3>
+            <p class="muted">MPV يعتمد على libav/ffmpeg مما يمنحه قدرة تشغيل معظم ملفات الفيديو والصوت دون حاجة لشراء ترخيص.</p>
+          </div>
+          <div class="card">
+            <h3>تحكم بالإيماءات</h3>
+            <p class="muted">اسحب لليمين/اليسار للتقديم، اسحب لأعلى/لأسفل لتغير الصوت أو السطوع — تصميم بديهي للهاتف.</p>
+          </div>
+          <div class="card">
+            <h3>ترجمة قوية</h3>
+            <p class="muted">دعم libass لعرض ترجمات غنية، أدوات مزامنة، وتنسيق نصي متقدّم.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <div class="chip">مفتوح المصدر</div>
+          <div class="chip">خفيف الوزن</div>
+          <div class="chip">يدعم تشغيل الشبكة</div>
+          <div class="chip">تحكم يدوي متقدم</div>
+        </div>
+      </div>
+
+      <!-- Right column: screenshot -->
+      <aside style="width:420px">
+        <div class="screenshot" role="img" aria-label="لقطة شاشة من التطبيق">
+          <!-- استخدم صورة فعلية في المسار assets/preview.png -->
+          <img src="/assets/preview.png" alt="لقطة شاشة mpv Android">
+        </div>
+      </aside>
+    </section>
+
+    <!-- Features & How to install -->
+    <section aria-labelledby="features-title">
+      <div class="row">
+        <div class="col">
+          <h2 id="features-title">الميزات الأساسية</h2>
+          <ul style="margin-top:12px;color:var(--muted);">
+            <li><strong>تشغيل محلي وشبكي</strong> — افتح ملفات من المعرض أو روابط مباشرة عبر HTTP/HTTPS/RTMP.</li>
+            <li><strong>تحكم بالإيماءات</strong> — تحكم سريع وسلس بالمشغل بدون أزرار معقّدة.</li>
+            <li><strong>دعم ترجمات متقدّم</strong> — libass يضمن عرض خطوط وخلفيات وتوقيت دقيق.</li>
+            <li><strong>تخصيص كامل</strong> — قوائم إعدادات للفيديو، الصوت، والترجمة، مع دعم سكربتات mpv.</li>
+            <li><strong>تحسين أداء</strong> — تسريع عبر العتاد عندما يكون متاحًا.</li>
+          </ul>
+
+          <div style="margin-top:14px;display:flex;gap:12px">
+            <a class="btn" href="/download/mpv-android-latest.apk">تحميل APK</a>
+            <a class="btn secondary" href="https://github.com/mpv-android/mpv-android/wiki">خطوات التثبيت</a>
+          </div>
+        </div>
+
+        <div class="col" style="max-width:420px">
+          <h3>تعليمات سريعة</h3>
+          <ol class="muted" style="padding-left:18px;margin-top:8px">
+            <li>حمّل التطبيق من Play أو قم بتنزيل APK من صفحة الإصدارات على GitHub.</li>
+            <li>افتح الملف وامنح الأذونات اللازمة لتشغيل الفيديو والوصول إلى الملفات.</li>
+            <li>لاستيراد الترجمة: سمّ الملف بنفس اسم الفيديو أو استخدم خيار "تحميل ترجمة" داخل المشغل.</li>
+            <li>لمشكلات الأداء: فعّل تسريع العتاد في الإعدادات إن وُجد.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshots carousel -->
+    <section aria-labelledby="screens-title">
+      <h2 id="screens-title">شاشات التطبيق</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
+        <div class="screenshot"><img src="/assets/shot1.png" alt="شاشة 1" loading="lazy"></div>
+        <div class="screenshot"><img src="/assets/shot2.png" alt="شاشة 2" loading="lazy"></div>
+        <div class="screenshot"><img src="/assets/shot3.png" alt="شاشة 3" loading="lazy"></div>
+      </div>
+    </section>
+
+    <!-- Changelog (مختصر) -->
+    <section aria-labelledby="changelog-title">
+      <h2 id="changelog-title">سجل التعديلات</h2>
+      <ul class="muted" style="margin-top:10px">
+        <li><strong>2025-12-10</strong> — تحسين أداء تسريع العتاد ودعم ترميزات جديدة.</li>
+        <li><strong>2025-08-04</strong> — إصلاح مشاكل تزامن الترجمة وتحسين الواجهة المظلمة.</li>
+        <li><strong>2025-03-19</strong> — إضافة دعم فتح روابط الشبكة مباشرة.</li>
+      </ul>
+      <a href="https://github.com/mpv-android/mpv-android/releases" class="btn secondary" style="margin-top:12px;display:inline-block">كل الإصدارات</a>
+    </section>
+
+    <!-- FAQ -->
+    <section aria-labelledby="faq-title">
+      <h2 id="faq-title">أسئلة متكررة</h2>
+      <details style="background:var(--glass);padding:12px;border-radius:10px;margin-top:8px">
+        <summary><strong>هل التطبيق آمن؟</strong></summary>
+        <p class="muted">نعم، المشروع مفتوح المصدر ويمكنك مراجعة الكود على GitHub قبل التثبيت.</p>
+      </details>
+
+      <details style="background:var(--glass);padding:12px;border-radius:10px;margin-top:8px">
+        <summary><strong>لماذا لا يظهر الفيديو؟</strong></summary>
+        <p class="muted">تأكد من السماح بالوصول للملفات، وأن صيغة الملف مدعومة. جرّب تحويل الملف أو استخدام إصدار أحدث من التطبيق.</p>
+      </details>
+    </section>
+
+    <!-- Contribute / Community -->
+    <section aria-labelledby="contrib">
+      <h2 id="contrib">المساهمة والمجتمع</h2>
+      <p class="muted">نرحّب بالمساهمات: فتح قضايا (Issues)، إرسال طلبات سحب (Pull Requests)، والمساعدة في التوثيق. لبدء المساهمة، راجع مستودع GitHub.</p>
+      <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn" href="https://github.com/mpv-android/mpv-android" target="_blank">مشروع GitHub</a>
+        <a class="btn secondary" href="mailto:contact@android.mpv.io">اتصل بالمطور</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <div style="font-weight:700">mpv‑Android</div>
+          <div class="muted">مشغل وسائط مفتوح المصدر — © 2025</div>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:center">
+          <a href="/privacy.html" class="muted">سياسة الخصوصية</a>
+          <a href="/terms.html" class="muted">الشروط</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Structured data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "mpv‑Android",
+    "operatingSystem": "Android",
+    "applicationCategory": "MultimediaApplication",
+    "url": "https://android.mpv.io/",
+    "image": "https://android.mpv.io/assets/preview.png",
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "description": "مشغل فيديو مفتوح المصدر لنظام Android مع دعم ترجمة متقدّم وتشغيل شبكي.",
+    "downloadUrl": "https://play.google.com/store/apps/details?id=is.xyz.mpv"
+  }
+  </script>
+
+  <!-- Small interactive scripts -->
+  <script>
+    // بسيط: فتح روابط خارجية بأمان
+    document.querySelectorAll('a[target="_blank"]').forEach(a=>a.setAttribute('rel','noopener'));
+
+    // تحسين: lazy loading للصور (متصفحات حديثة تدعم loading=lazy)
+
+    // TODO: يمكنك إضافة تتبع تحليلات هنا (Google Analytics / Plausible) — ضع الشيفرة الآمنة هنا
+  </script>
+</body>
+</html>
